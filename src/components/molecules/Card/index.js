@@ -1,14 +1,15 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View,Image} from 'react-native';
 
-const Card = ({fullname,username, email, address,phone}) => {
+const Card = ({fullname, email, avatar}) => {
   return (
     <View style={styles.card}>
-      <Text style={styles.name}>{fullname}</Text>
-      <Text style={styles.username}>{username}</Text>
+      <Image style={styles.avatar} source={{uri: `${avatar}`}} />
+     <View style={styles.cardWrapper}>
+     <Text style={styles.fullname}>{fullname}</Text>
       <Text style={styles.email}>{email}</Text>
-      <Text style={styles.address}>{address}</Text>
-      <Text style={styles.phone}>{phone}</Text>
+      
+     </View>
       
     </View>
   );
@@ -20,14 +21,31 @@ const styles = StyleSheet.create({
   card: {
     marginTop: 15,
     alignItems: 'center',
+    flexDirection:'row',
+  },
+  cardWrapper:{
+    marginLeft: 10,
+    justifyContent:'center',
   },
   fullname: {
-    fontSize: 18,
-    fontWeight: '700',
+    
+    fontSize: 20,
+    fontWeight:'bold',
+    color: 'black',
+    marginTop: 10,
+
   },
   email: {
-    fontSize: 16,
-    color: 'grey',
+    fontSize: 18,
+    color: 'black',
     marginTop: 10,
+
   },
-});
+  
+  avatar: {
+    borderRadius: 100,
+    height: 100,
+    width: 100,
+    marginTop: 10,
+
+  }});

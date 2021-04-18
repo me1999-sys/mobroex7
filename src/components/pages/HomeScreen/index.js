@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import Card from '../../molecules/Card';
 import Axios from 'axios';
-
+import Button from'../../atoms/Button';
 const HomeScreen = () => {
   const [users, setUsers] = useState([]);
 
@@ -12,28 +12,34 @@ const HomeScreen = () => {
     //   .then(res => res.json())
     //   .then(json => setUsers(json.data));
     //Axios
-    Axios.get('https://jsonplaceholder.typicode.com/users').then(res => 
-    setUsers(res.data.data)
+    Axios.get(' http://10.0.2.2:3006/users').then(res => 
+    setUsers(res.data)
     
       
     );
-  }, []);
-
-  return (
+  }, [users]);  
+  const handleSubmit = () =>{
+    const data ={
+      email: 'palangan@gmail.com',
+      first_name: 'Meyva',
+      last_name:'Palangan',
+      avatar:"https://source.unsplash.com/random",
+    };
+Axios.post(' http://10.0.2.2:3006/users',data)
+  };
+return (
     <View style={styles.container}>
       <Text style={styles.title}>User List</Text>
 
       <ScrollView showsVerticalScrollIndicator={false}>
+        <Button label="Tambah" onSubmit={handleSubmit}/>
         {users.map(item => (
           <Card
           key={item.id}
-            fullname={item.name}
-            username={item.username}
-            email={item.email}
-            address ={`${item.address.street}, ${item.city}`}
-            phone={item.phone}
-          
-            
+          avatar={item.avatar} 
+           fullname={`${item.first_name} ${item.last_name}`}
+           email={item.email}          
+           
           />
         ))}
       </ScrollView>
@@ -57,13 +63,4 @@ const styles = StyleSheet.create({
     marginTop: 15,
     alignItems: 'center',
   },
-  fullname: {
-    fontSize: 18,
-    color:'black',
-  },
-  email: {
-    fontSize: 16,
-    color: 'grey',
-    marginTop: 10,
-  }
 });
